@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 @EntityScan(basePackages = {"fr.formation.sdj.entities"})
+@ComponentScan(basePackages = {"fr.formation.sdj.controller"})
 public class SpringDataJpaApplication {
 
 	public static void main(String[] args) {
