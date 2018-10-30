@@ -1,4 +1,4 @@
-package fr.formation.sdj.SpringDataJPA;
+package fr.formation.sdj;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,12 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableAutoConfiguration
 @EntityScan(basePackages = {"fr.formation.sdj.entities"})
-@ComponentScan(basePackages = {"fr.formation.sdj.controller","fr.formation.sdj.repositories"})
+@ComponentScan(basePackages = {"fr.formation.sdj.controller", "fr.formation.sdj.repositories"})
 public class SpringDataJpaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringDataJpaApplication.class, args);
-	}
-
+    public static void main(final String[] args) {
+        SpringApplication.run(SpringDataJpaApplication.class, args);
+    }
 
 }
