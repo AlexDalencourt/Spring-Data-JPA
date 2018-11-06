@@ -1,11 +1,17 @@
 package fr.formation.sdj.entities;
 
-import javax.persistence.*;
+import fr.formation.sdj.entities.PK.StockPK;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.io.Serializable;
 
 @Entity
-public class Stock implements Serializable{
+public class Stock implements Serializable {
 
+    private static final long serialVersionUID = 7099217719598142717L;
     @EmbeddedId
     private StockPK id;
 
@@ -19,11 +25,19 @@ public class Stock implements Serializable{
 
     private Integer stockLeft;
 
+    public Stock() {
+        id = new StockPK();
+    }
+
+    public Stock(final StockPK id) {
+        this.id = id;
+    }
+
     public Supplier getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(Supplier supplier) {
+    public void setSupplier(final Supplier supplier) {
         this.supplier = supplier;
     }
 
@@ -31,7 +45,7 @@ public class Stock implements Serializable{
         return stockLeft;
     }
 
-    public void setStockLeft(Integer stockLeft) {
+    public void setStockLeft(final Integer stockLeft) {
         this.stockLeft = stockLeft;
     }
 
@@ -39,7 +53,7 @@ public class Stock implements Serializable{
         return id;
     }
 
-    public void setId(StockPK id) {
+    public void setId(final StockPK id) {
         this.id = id;
     }
 
@@ -47,31 +61,7 @@ public class Stock implements Serializable{
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(final Product product) {
         this.product = product;
-    }
-
-    @Embeddable
-    public class StockPK implements Serializable{
-
-        private Integer productId;
-
-        private String supplierId;
-
-        public String getSupplierId() {
-            return supplierId;
-        }
-
-        public void setSupplierId(String supplierId) {
-            this.supplierId = supplierId;
-        }
-
-        public Integer getProductId() {
-            return productId;
-        }
-
-        public void setProductId(Integer productId) {
-            this.productId = productId;
-        }
     }
 }

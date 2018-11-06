@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 public class Product implements Serializable {
 
+    private static final long serialVersionUID = -816572441451992946L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
@@ -14,7 +15,7 @@ public class Product implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "product")
-    private List<Stock> stock_left;
+    private List<Stock> stockLeft;
 
     @ManyToMany(mappedBy = "catalog")
     private List<Supplier> suppliers;
@@ -23,31 +24,31 @@ public class Product implements Serializable {
         return suppliers;
     }
 
-    public void setSuppliers(List<Supplier> suppliers) {
+    public void setSuppliers(final List<Supplier> suppliers) {
         this.suppliers = suppliers;
     }
 
-    public List<Stock> getStock_left() {
-        return stock_left;
+    public List<Stock> getStockLeft() {
+        return stockLeft;
     }
 
-    public void setStock_left(List<Stock> stock_left) {
-        this.stock_left = stock_left;
+    public void setStockLeft(final List<Stock> stockLeft) {
+        this.stockLeft = stockLeft;
     }
 
     public Integer getId() {
         return id;
     }
 
+    public void setId(final Integer id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 }
