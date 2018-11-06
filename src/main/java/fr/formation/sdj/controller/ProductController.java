@@ -12,8 +12,8 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    @RequestMapping("/home")
-    public String home(ModelMap model) {
+    @RequestMapping("/")
+    public String home(final ModelMap model) {
         model.put("productList", productRepository.findAll());
         return "home";
     }
@@ -22,7 +22,7 @@ public class ProductController {
         return productRepository;
     }
 
-    public void setProductRepository(ProductRepository productRepository) {
+    public void setProductRepository(final ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 }
