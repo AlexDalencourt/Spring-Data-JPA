@@ -7,16 +7,32 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+//@RequestMapping("/")
 public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
 
+    //    @RequestMapping(method = RequestMethod.GET)
     @RequestMapping("/")
     public String home(final ModelMap model) {
         model.put("productList", productRepository.findAll());
+//        model.put("productRef", model.get("productList"));
+//        model.put("productFilter", new Product());
         return "home";
     }
+
+//    @RequestMapping(method = RequestMethod.POST)
+//    public String filter(@ModelAttribute final Product product, final ModelMap model) {
+//        model.put("productRef", productRepository.findAll());
+//        if (product.getName() == null) {
+//            model.put("productList", model.get("productRef"));
+//        } else {
+//            model.put("productList", productRepository.findAllByName(product.getName()));
+//        }
+//        model.put("productFilter", new Product());
+//        return "home";
+//    }
 
     public ProductRepository getProductRepository() {
         return productRepository;
