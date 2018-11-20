@@ -7,11 +7,11 @@
 <body>
 <div th:insert="fragments/template.html :: header"></div>
 <form th:action="@{/}" th:object="${productFilter}" method="post">
-    <div class="panel">
-        <div class="header">
+    <div class="panel panel-default">
+        <div class="panel-heading">
             <h1>Filter</h1>
         </div>
-        <div class="body">
+        <div class="panel-body">
             <label>Product</label>
             <select th:field="*{name}">
                 <option selected th:value="null"></option>
