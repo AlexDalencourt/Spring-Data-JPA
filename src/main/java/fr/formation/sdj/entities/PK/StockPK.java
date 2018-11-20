@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class StockPK implements Serializable {
 
     private static final long serialVersionUID = -4091653634973810267L;
+
     private Integer productId;
 
     private String supplierId;

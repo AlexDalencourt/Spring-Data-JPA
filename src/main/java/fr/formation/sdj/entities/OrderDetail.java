@@ -1,12 +1,17 @@
 package fr.formation.sdj.entities;
 
-import javax.persistence.*;
+import fr.formation.sdj.entities.PK.OrderDetailPK;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 public class OrderDetail implements Serializable {
 
+    private static final long serialVersionUID = 4655043604341008907L;
     @EmbeddedId
     private OrderDetailPK id;
 
@@ -24,7 +29,7 @@ public class OrderDetail implements Serializable {
         return id;
     }
 
-    public void setId(OrderDetailPK id) {
+    public void setId(final OrderDetailPK id) {
         this.id = id;
     }
 
@@ -32,7 +37,7 @@ public class OrderDetail implements Serializable {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(final Product product) {
         this.product = product;
     }
 
@@ -40,7 +45,7 @@ public class OrderDetail implements Serializable {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(final Order order) {
         this.order = order;
     }
 
@@ -48,46 +53,7 @@ public class OrderDetail implements Serializable {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(final Integer quantity) {
         this.quantity = quantity;
-    }
-
-    @Embeddable
-    public class OrderDetailPK implements Serializable {
-
-        private Integer productId;
-
-        private Integer orderId;
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            OrderDetailPK that = (OrderDetailPK) o;
-            return Objects.equals(productId, that.productId) &&
-                    Objects.equals(orderId, that.orderId);
-        }
-
-        @Override
-        public int hashCode() {
-
-            return Objects.hash(productId, orderId);
-        }
-
-        public Integer getProductId() {
-            return productId;
-        }
-
-        public void setProductId(Integer productId) {
-            this.productId = productId;
-        }
-
-        public Integer getOrderId() {
-            return orderId;
-        }
-
-        public void setOrderId(Integer orderId) {
-            this.orderId = orderId;
-        }
     }
 }

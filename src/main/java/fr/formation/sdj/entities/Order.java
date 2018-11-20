@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "ORDERS")
 public class Order implements Serializable {
 
+    private static final long serialVersionUID = 7813447036387376462L;
     @Id
     @GeneratedValue
     private Integer id;
@@ -26,7 +28,7 @@ public class Order implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(final Integer id) {
         this.id = id;
     }
 
@@ -34,7 +36,7 @@ public class Order implements Serializable {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(final Date date) {
         this.date = date;
     }
 
@@ -42,7 +44,7 @@ public class Order implements Serializable {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(final User owner) {
         this.owner = owner;
     }
 
@@ -50,7 +52,7 @@ public class Order implements Serializable {
         return detail;
     }
 
-    public void setDetail(List<OrderDetail> detail) {
+    public void setDetail(final List<OrderDetail> detail) {
         this.detail = detail;
     }
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="fragments/template.html :: headerfile(title='Order')"/>
+</head>
+<body>
+<div th:insert="fragments/template.html :: header"></div>
+<form th:action="@{/order}" th:object="${userFilter}" method="post">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1>Filter</h1>
+        </div>
+        <div class="panel-body">
+            <label>User</label>
+            <select th:field="*{name}">
+                <option selected th:value="null"></option>
+                <option th:each="currUser : ${userList}" th:value="${currUser.name}"
+                        th:text="${currUser.name}"></option>
+            </select>
+            <button type="submit">Filter</button>
+        </div>
+    </div>
+</form>
+<table class="table table-striped" th:if="${orderList != null}">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Owner</th>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:each="order : ${orderList}" th:with="detailSize = ${order.detail.size()}">
+            <tr>
+                <td th:text="${order.id}"
+                    th:rowspan="${detailSize} > 1 ? ${detailSize} : 1"></td>
+                <td th:text="${order.date}"
+                    th:rowspan="${detailSize} > 1 ? ${detailSize} : 1"></td>
+                <td th:text="${order.owner.name}"
+                    th:rowspan="${detailSize} > 1 ? ${detailSize} : 1"></td>
+                <td th:text="${order.detail.get(0).product.name}"></td>
+                <td th:text="${order.detail.get(0).quantity}"></td>
+            </tr>
+            <tr th:if="${detailSize > 1} and !${stats.first}" th:each="detail,stats : ${order.detail}">
+                <td th:text="${detail.product.name}"></td>
+                <td th:text="${detail.quantity}"></td>
+            </tr>
+        </th:block>
+    </tbody>
+</table>
+</body>
+</html>

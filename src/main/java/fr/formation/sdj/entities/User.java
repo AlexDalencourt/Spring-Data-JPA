@@ -7,8 +7,9 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class User implements Serializable{
+public class User implements Serializable {
 
+    private static final long serialVersionUID = -2535874741558061207L;
     @Id
     private String login;
 
@@ -21,7 +22,7 @@ public class User implements Serializable{
         return login;
     }
 
-    public void setLogin(String login) {
+    public void setLogin(final String login) {
         this.login = login;
     }
 
@@ -29,7 +30,7 @@ public class User implements Serializable{
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -37,7 +38,7 @@ public class User implements Serializable{
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(final List<Order> orders) {
         this.orders = orders;
     }
 }
