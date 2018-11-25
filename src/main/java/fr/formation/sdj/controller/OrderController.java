@@ -41,16 +41,8 @@ public class OrderController {
         return "order";
     }
 
-    public UserRepository getUserRepository() {
-        return userRepository;
-    }
-
     public void setUserRepository(final UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    public OrderRepository getOrderRepository() {
-        return orderRepository;
     }
 
     public void setOrderRepository(final OrderRepository orderRepository) {

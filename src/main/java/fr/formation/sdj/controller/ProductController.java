@@ -37,10 +37,6 @@ public class ProductController {
         return "home";
     }
 
-    public ProductRepository getProductRepository() {
-        return productRepository;
-    }
-
     public void setProductRepository(final ProductRepository productRepository) {
         this.productRepository = productRepository;
     }

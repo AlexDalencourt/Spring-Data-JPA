@@ -15,6 +15,8 @@ public class User implements Serializable {
 
     private String name;
 
+    private String password;
+
     @OneToMany(mappedBy = "owner")
     private List<Order> orders;
 
@@ -40,5 +42,13 @@ public class User implements Serializable {
 
     public void setOrders(final List<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

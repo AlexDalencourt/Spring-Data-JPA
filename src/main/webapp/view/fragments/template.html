@@ -3,7 +3,7 @@
 <head th:fragment="headerfile (title)">
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/view/css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -18,12 +18,20 @@
             <li><a href="/">Home</a></li>
             <li><a href="/order">Orders</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <ul class="nav navbar-nav navbar-right" id="userInformations" th:fragment="userInformations">
+            <li th:if="${session == null || session.userLogged == null}">
+                <a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+            </li>
+            <li th:if="${session == null || session.userLogged == null}">
+                <a id="loginLink"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                <th:block th:include="fragments/login.html :: loginForm"/>
+            </li>
+            <li th:if="${session != null && session.userLogged != null}">
+                <a th:href="@{/login/logout}" id="logofLink"><span class="glyphicon glyphicon-log-out"></span> Log
+                    out</a>
+            </li>
         </ul>
     </div>
 </nav>
-navbar-fixed-top
 </body>
 </html>

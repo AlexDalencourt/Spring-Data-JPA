@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<th:block th:fragment="loginForm">
+    <form class="modal fade" id="loginModal" aria-hidden="true" method="post" onsubmit="return doLogin();">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Login</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" id="errorLogin" th:hidden="true">
+                        <strong>Error</strong> invalid login or password.
+                    </div>
+                    <div class="form-group">
+                        <label for="login">Login</label>
+                        <input type="text" class="form-control" id="login" name="login">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <button type="submit">Login</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script th:inline="javascript" type="text/javascript">
+        function doLogin() {
+            login = $("#login").val();
+            password = $("#password").val();
+            $.ajax({
+                type: 'POST',
+                url: '/login',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    login: login,
+                    password: password
+                }),
+                success: function (data) {
+                    if (data) {
+                        location.reload();
+                    } else {
+                        $("#errorLogin").show();
+                    }
+                }
+                ,
+                error: function (data) {
+                    console.log('error try loggin');
+                    console.log(data);
+                }
+            })
+            ;
+            return false;
+        }
+        ;
+
+        $(document).ready(function () {
+            $('#loginLink').on('click', function (e) {
+                $('#loginModal').modal();
+            })
+        });
+    </script>
+</th:block>
+</body>
+</html>
