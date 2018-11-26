@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<th:block th:fragment="signupForm">
+    <form class="modal fade" id="signupModal" aria-hidden="true" onsubmit="return doSignUp();">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Sign up</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" id="errorSignup" th:hidden="true">
+                        <strong>Error</strong> login already exist.
+                    </div>
+                    <div class="alert alert-danger" id="errorSignupParams" th:hidden="true">
+                        <strong>Error</strong> some fields are empty.
+                    </div>
+                    <div class="form-group">
+                        <label for="signUpLogin">Login</label>
+                        <input type="text" class="form-control" id="signUpLogin" name="login">
+                    </div>
+                    <div class="form-group">
+                        <label for="signUpName">Name</label>
+                        <input type="text" class="form-control" id="signUpName" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="signUpPassword">Password</label>
+                        <input type="password" class="form-control" id="signUpPassword" name="password">
+                    </div>
+                    <button type="submit">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script th:inline="javascript" type="text/javascript">
+        function doSignUp() {
+            login = $("#signUpLogin").val();
+            nameAttr = $("#signUpName").val();
+            password = $("#signUpPassword").val();
+            $.ajax({
+                type: 'PUT',
+                url: '/login',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    login: login,
+                    name: nameAttr,
+                    password: password
+                }),
+                success: function (data) {
+                    if (data) {
+                        location.reload();
+                    } else {
+                        $("#errorSignup").show();
+                    }
+                }
+                ,
+                error: function (data) {
+                    $("#errorSignupParams").show();
+                }
+            })
+            ;
+            return false;
+        }
+        ;
+
+        $(document).ready(function () {
+            $('#signupLink').on('click', function (e) {
+                $('#signupModal').modal();
+            })
+        });
+    </script>
+</th:block>
+</body>
+</html>

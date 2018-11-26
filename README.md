@@ -16,6 +16,9 @@
     * ProductController : method __Home__
   * Orders page without using filter
     * OrderController : method __init__
+* findById :
+  * Sign up for control not existing user
+    * LoginController : method __doLogin__
 
 ### Using query methods
 
@@ -24,6 +27,11 @@
     * Repository : __ProductRepository__
 ```java
 List<Product> findAllByName(String name);
+```
+  * Login action, using LoginController
+    * Repository : __UserRepository__
+```java
+User findByLoginAndPassword(String login,String password);
 ```
 * Property Expressions
   * Orders page with name filter

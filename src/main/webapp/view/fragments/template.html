@@ -20,7 +20,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" id="userInformations" th:fragment="userInformations">
             <li th:if="${session == null || session.userLogged == null}">
-                <a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                <a id="signupLink"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                <th:block th:include="fragments/signup.html :: signupForm"/>
             </li>
             <li th:if="${session == null || session.userLogged == null}">
                 <a id="loginLink"><span class="glyphicon glyphicon-log-in"></span> Login</a>
