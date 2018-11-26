@@ -19,6 +19,7 @@
 * findById :
   * Sign up for control not existing user
     * LoginController : method __doLogin__
+      * Use the property isPresent
 
 ### Using query methods
 
