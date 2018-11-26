@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/login")
 public class LoginController {
 
+	public static final String USER_LOGGED_SESSION_ATTRIBUTE = "userLogged";
+	
     @Autowired
     private UserRepository userRepository;
 
@@ -24,7 +26,7 @@ public class LoginController {
     public boolean doLogin(@RequestBody final LoginForm form, final HttpSession session) {
         final User user = userRepository.findByLoginAndPassword(form.getLogin(), form.getPassword());
         if (user != null) {
-            session.setAttribute("userLogged", user);
+            session.setAttribute(USER_LOGGED_SESSION_ATTRIBUTE, user);
         }
         return user != null;
     }
@@ -38,13 +40,13 @@ public class LoginController {
     @ResponseBody
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean doSignup(@RequestBody @Validated final SignupForm form, final HttpSession session) {
-        if (userRepository.findById(form.getLogin()).isPresent()) {
+        if (!userRepository.findById(form.getLogin()).isPresent()) {
             User user = new User();
             user.setLogin(form.getLogin());
             user.setName(form.getName());
             user.setPassword(form.getPassword());
             user = userRepository.save(user);
-            session.setAttribute("userLogger", user);
+            session.setAttribute(USER_LOGGED_SESSION_ATTRIBUTE, user);
             return true;
         }
         return false;
