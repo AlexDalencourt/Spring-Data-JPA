@@ -8,4 +8,6 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     List<Product> findAllByName(String name);
+    
+    int countByNameLike(String pattern);
 }
