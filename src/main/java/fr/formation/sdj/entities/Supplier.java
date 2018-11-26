@@ -7,7 +7,9 @@ import java.util.List;
 @Entity
 public class Supplier implements Serializable{
 
-    @Id
+	private static final long serialVersionUID = 4319225091829692413L;
+
+	@Id
     private String siret;
 
     private String name;
