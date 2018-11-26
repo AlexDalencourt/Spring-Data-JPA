@@ -1,4 +1,4 @@
-package fr.formation.sdj.entities.PK;
+package fr.formation.sdj.entities.pk;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;

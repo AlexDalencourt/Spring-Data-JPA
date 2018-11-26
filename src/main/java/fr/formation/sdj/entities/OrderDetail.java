@@ -1,11 +1,12 @@
 package fr.formation.sdj.entities;
 
-import fr.formation.sdj.entities.PK.OrderDetailPK;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+
+import fr.formation.sdj.entities.pk.OrderDetailPK;
+
 import java.io.Serializable;
 
 @Entity
