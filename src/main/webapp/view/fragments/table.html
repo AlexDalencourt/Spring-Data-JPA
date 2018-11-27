@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<th:block th:fragment="productTable">
+	<table class="table table-striped">
+	    <thead class="thead-dark">
+	        <tr>
+	            <th rowspan="2">Nom</th>
+	            <th colspan="2">Stock</th>
+	        </tr>
+	        <tr>
+	            <th>Fournisseur</th>
+	            <th>Stock</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <th:block th:each="product : ${productList}" th:with="nbSupplier = ${product.stockLeft.size()}">
+	            <tr>
+	                <td th:text="${product.name}"
+	                    th:rowspan="${nbSupplier} > 1 ? ${nbSupplier} : 1"></td>
+	                <th:block th:switch="${nbSupplier}">
+	                    <th:block th:case="0">
+	                        <td></td>
+	                        <td th:text="0"></td>
+	                    </th:block>
+	                    <th:block th:case="*">
+	                        <td th:text="${product.stockLeft.get(0).supplier.name}"></td>
+	                        <td th:text="${product.stockLeft.get(0).stockLeft}"></td>
+	                    </th:block>
+	                </th:block>
+	            </tr>
+	            <tr th:if="${nbSupplier > 1} and !${stats.first}" th:each="stock,stats : ${product.stockLeft}">
+	                <td th:text="${stock.supplier.name}"></td>
+	                <td th:text="${stock.stockLeft}"></td>
+	            </tr>
+	        </th:block>
+	    </tbody>
+	</table>
+</th:block>
+</body>
+</html>

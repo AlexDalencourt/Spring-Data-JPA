@@ -23,6 +23,7 @@ public class AdministrationController {
 	public String init(ModelMap model) {
 		model.addAttribute("nbDiscAvailable", productRepository.countByNameLike(DISC_PATTERN));
 		model.addAttribute("nbCdAvailable", productRepository.countByNameLike(CD_PARTERN));
+		model.addAttribute("productList", productRepository.findAll());
 		return "administration";
 	}
 

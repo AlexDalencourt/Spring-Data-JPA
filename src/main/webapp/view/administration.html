@@ -6,6 +6,42 @@
 </head>
 <body>
 <div th:insert="fragments/template.html :: header"></div>
-
+<div class="row">
+	<div class="col-md-6">
+		<div id="panelProduct" class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Products administration</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<label>Number of CD : </label>
+						<label th:text="${nbCdAvailable}"></label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<label>Number of disc : </label>
+						<label th:text="${nbDiscAvailable}"></label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<th:block th:insert="fragments/table.html :: productTable"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div id="panelOrder" class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Orders administration</h3>
+			</div>
+			<div class="panel-body">
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
