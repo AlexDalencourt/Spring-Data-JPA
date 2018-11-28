@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import fr.formation.sdj.repositories.OrderRepository;
 import fr.formation.sdj.repositories.ProductRepository;
 
 @Controller
@@ -19,15 +20,23 @@ public class AdministrationController {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Autowired
+	private OrderRepository orderRepository;
+
 	@GetMapping
 	public String init(ModelMap model) {
-		model.addAttribute("nbDiscAvailable", productRepository.countByNameLike(DISC_PATTERN));
-		model.addAttribute("nbCdAvailable", productRepository.countByNameLike(CD_PARTERN));
-		model.addAttribute("productList", productRepository.findAll());
+		model.put("nbDiscAvailable", productRepository.countByNameLike(DISC_PATTERN));
+		model.put("nbCdAvailable", productRepository.countByNameLike(CD_PARTERN));
+		model.put("productList", productRepository.findAll());
+        model.put("orderList", orderRepository.findAll());
 		return "administration";
 	}
 
 	public void setProductRepository(ProductRepository productRepository) {
 		this.productRepository = productRepository;
+	}
+
+	public void setOrderRepository(OrderRepository orderRepository) {
+		this.orderRepository = orderRepository;
 	}
 }

@@ -34,11 +34,28 @@
 		</div>
 	</div>
 	<div class="col-md-6">
-		<div id="panelOrder" class="panel panel-default">
+		<div id="panelOrder" class="panel panel-default hg-100-pc">
 			<div class="panel-heading">
 				<h3>Orders administration</h3>
 			</div>
 			<div class="panel-body">
+				<div class="row">
+					<form id="admOrderForm" method="post">
+						<div class="col-md-6 text-center">
+							<label>After : </label>
+							<input type="date" id="afterField">
+						</div>
+						<div class="col-md-6 text-center">
+							<label>Before : </label>
+							<input type="date" id="beforeField"> 
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<th:block th:insert="fragments/table.html :: orderTable "/>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

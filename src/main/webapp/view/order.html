@@ -22,34 +22,6 @@
         </div>
     </div>
 </form>
-<table class="table table-striped" th:if="${orderList != null}">
-    <thead class="thead-dark">
-        <tr>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Owner</th>
-            <th>Product</th>
-            <th>Quantity</th>
-        </tr>
-    </thead>
-    <tbody>
-        <th:block th:each="order : ${orderList}" th:with="detailSize = ${order.detail.size()}">
-            <tr>
-                <td th:text="${order.id}"
-                    th:rowspan="${detailSize} > 1 ? ${detailSize} : 1"></td>
-                <td th:text="${order.date}"
-                    th:rowspan="${detailSize} > 1 ? ${detailSize} : 1"></td>
-                <td th:text="${order.owner.name}"
-                    th:rowspan="${detailSize} > 1 ? ${detailSize} : 1"></td>
-                <td th:text="${order.detail.get(0).product.name}"></td>
-                <td th:text="${order.detail.get(0).quantity}"></td>
-            </tr>
-            <tr th:if="${detailSize > 1} and !${stats.first}" th:each="detail,stats : ${order.detail}">
-                <td th:text="${detail.product.name}"></td>
-                <td th:text="${detail.quantity}"></td>
-            </tr>
-        </th:block>
-    </tbody>
-</table>
+<th:block th:include="fragments/table.html :: orderTable"/>
 </body>
 </html>
