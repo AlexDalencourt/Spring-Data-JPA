@@ -40,19 +40,22 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<form id="admOrderForm" method="post">
-						<div class="col-md-6 text-center">
-							<label>After : </label>
-							<input type="date" id="afterField">
+					<form id="admOrdersForm"  method="get" onsubmit="return filterOrders();">
+						<div class="col-md-4 text-center">
+							<label for="afterField">After : </label>
+							<input type="date" name="dateAfter" id="afterField">
 						</div>
-						<div class="col-md-6 text-center">
-							<label>Before : </label>
-							<input type="date" id="beforeField"> 
+						<div class="col-md-4 text-center">
+							<label for="beforeField">Before : </label>
+							<input type="date" name="dateBefore" id="beforeField"> 
+						</div>
+						<div class="col-md-4 text-center">
+							<button type="submit">Filter</button>
 						</div>
 					</form>
 				</div>
 				<div class="row">
-					<div class="col-md-12 text-center">
+					<div class="col-md-12 text-center" id="admOrdersTable">
 						<th:block th:insert="fragments/table.html :: orderTable "/>
 					</div>
 				</div>
@@ -61,4 +64,22 @@
 	</div>
 </div>
 </body>
+<script th:inline="javascript" type="text/javascript">
+	function filterOrders(){
+		dateAfter = $("#afterField").val();
+		dateBefore = $("#beforeField").val();
+		$.ajax({
+			type: 'GET',
+			url: '/admin/orders',
+			data: {dateAfter: dateAfter, dateBefore: dateBefore},
+			success: function (response){
+				$("#admOrdersTable").replaceWith(response);
+			},
+			error: function(xhr){
+				console.log(xhr);
+			}
+		});
+		return false;
+	}
+</script>
 </html>

@@ -1,9 +1,15 @@
 package fr.formation.sdj.controller;
 
+import java.util.Date;
+
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.formation.sdj.repositories.OrderRepository;
@@ -30,6 +36,12 @@ public class AdministrationController {
 		model.put("productList", productRepository.findAll());
         model.put("orderList", orderRepository.findAll());
 		return "administration";
+	}
+	
+	@GetMapping("/orders")
+	public String filterOrders(@PathParam("dateAfter") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAfter,@PathParam("dateBefore") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateBefore,ModelMap model) {
+		model.put("orderList", orderRepository.findAllByDateBetween(dateAfter, dateBefore));
+		return "fragments/table.html :: orderTable";
 	}
 
 	public void setProductRepository(ProductRepository productRepository) {

@@ -34,6 +34,11 @@ List<Product> findAllByName(String name);
 ```java
 User findByLoginAndPassword(String login,String password);
 ```
+  * Administration, using AdministrationController
+    * Repository : __ProductRepository
+```java
+int countByNameLike(String pattern);
+```
 * Property Expressions
   * Orders page with name filter
     * Repository : __OrderRepository__
