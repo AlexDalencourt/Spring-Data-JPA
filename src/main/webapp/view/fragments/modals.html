@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<th:block th:fragment="commandToSupplierModal">
+	<div class="modal fade" id = "commandToSupplierModal">
+		<form id="commandToSupplierForm" th:object="${commandForm}"  aria-hidden="true" method="post" th:action="@{/admin/command}" th:fragment="commandToSupplierForm" th:if="${commandForm != null}">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3>Stock order</h3>
+					</div>
+					<div class="modal-body">
+						<table class="table table-striped" id="commandToSupplierModalTable">
+							<thead class="thead-dark">
+								<tr>
+									<th>Supplier</th>
+									<th>Quantity</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="supplier, itemStat : ${commandForm.suppliersCommand}">
+									<td th:text="${supplier.supplier.name}"></td>
+									<td>
+										<input th:field="${commandForm.suppliersCommand[__${itemStat.index}__].stockLeft}" type="number" min="0" value="0">
+										<input type="hidden" th:field="${commandForm.suppliersCommand[__${itemStat.index}__].id.supplierId}" th:value="${supplier.id.supplierId}">
+										<input type="hidden" th:field="${commandForm.suppliersCommand[__${itemStat.index}__].id.productId}" th:value="${supplier.id.productId}">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<button type="submit">Order</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script th:inline="javascript" type="text/javascript">
+		$('#commandToSupplierModal').on('show.bs.modal', function (event) {
+		  var productId = $(event.relatedTarget).data('product-id');
+		  $.ajax({
+			  type: 'GET',
+			  url: '/admin/suppliers/' + productId,
+			  success: function(response){
+				  $("#commandToSupplierModal").html(response);
+			  },
+			  error: function(xhr){
+				  console.log(xhr);
+			  }
+		  })
+		});
+	</script>
+</th:block>
+</body>
+</html>

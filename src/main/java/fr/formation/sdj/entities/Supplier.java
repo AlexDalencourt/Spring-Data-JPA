@@ -18,7 +18,14 @@ public class Supplier implements Serializable{
     @JoinTable(name = "supplier_catalog", joinColumns = @JoinColumn(name = "supplier_siret"), inverseJoinColumns = @JoinColumn(name = "catalog_id"))
     private List<Product> catalog;
 
-    public List<Product> getCatalog() {
+    public Supplier() {
+	}
+
+	public Supplier(String siret) {
+		this.siret = siret;
+	}
+
+	public List<Product> getCatalog() {
         return catalog;
     }
 

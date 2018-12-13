@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
-<th:block th:fragment="productTable">
+<th:block th:fragment="productTable (commandStockButtonEnable)">
 	<table class="table table-striped">
 	    <thead class="thead-dark">
 	        <tr>
 	            <th rowspan="2">Nom</th>
 	            <th colspan="2">Stock</th>
+	            <th th:if="${commandStockButtonEnable}" rowspan="2">Action</th>
 	        </tr>
 	        <tr>
-	            <th>Fournisseur</th>
+	            <th>Supplier</th>
 	            <th>Stock</th>
 	        </tr>
 	    </thead>
@@ -28,6 +29,9 @@
 	                        <td th:text="${product.stockLeft.get(0).stockLeft}"></td>
 	                    </th:block>
 	                </th:block>
+	                <td th:if="${commandStockButtonEnable}">
+	                	<button type="button" data-toggle="modal" data-target="#commandToSupplierModal" th:attr="data-product-id=${product.id}" class="glyphicon glyphicon-plus"></button>
+	                </td>
 	            </tr>
 	            <tr th:if="${nbSupplier > 1} and !${stats.first}" th:each="stock,stats : ${product.stockLeft}">
 	                <td th:text="${stock.supplier.name}"></td>
@@ -36,6 +40,10 @@
 	        </th:block>
 	    </tbody>
 	</table>
+	
+	<th:block th:if="${commandStockButtonEnable}">
+		<th:block th:include="fragments/modals.html :: commandToSupplierModal"></th:block>
+	</th:block>
 </th:block>
 
 <th:block th:fragment="orderTable">

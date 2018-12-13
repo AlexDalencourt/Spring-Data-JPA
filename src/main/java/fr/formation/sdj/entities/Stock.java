@@ -1,5 +1,6 @@
 package fr.formation.sdj.entities;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -21,7 +22,7 @@ public class Stock implements Serializable {
     private Product product;
 
     @MapsId("supplierId")
-    @ManyToOne
+    @ManyToOne(optional = true)
     private Supplier supplier;
 
     private Integer stockLeft;
@@ -32,6 +33,11 @@ public class Stock implements Serializable {
 
     public Stock(final StockPK id) {
         this.id = id;
+    }
+    
+    public Stock(final StockPK id, Integer stockLeft) {
+    	this(id);
+    	this.stockLeft = stockLeft;
     }
 
     public Supplier getSupplier() {
@@ -65,4 +71,9 @@ public class Stock implements Serializable {
     public void setProduct(final Product product) {
         this.product = product;
     }
+
+	@Override
+	public String toString() {
+		return "Stock [id=" + id + ", product=" + product + ", supplier=" + supplier + ", stockLeft=" + stockLeft + "]";
+	}
 }

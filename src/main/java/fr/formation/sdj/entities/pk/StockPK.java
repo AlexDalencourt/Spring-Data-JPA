@@ -14,7 +14,7 @@ public class StockPK implements Serializable {
 
     public StockPK() {
     }
-
+    
     public StockPK(final Integer productId, final String supplierId) {
         this.productId = productId;
         this.supplierId = supplierId;
@@ -35,4 +35,9 @@ public class StockPK implements Serializable {
     public void setProductId(final Integer productId) {
         this.productId = productId;
     }
+
+	@Override
+	public String toString() {
+		return "StockPK [productId=" + productId + ", supplierId=" + supplierId + "]";
+	}
 }
