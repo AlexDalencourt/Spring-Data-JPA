@@ -11,5 +11,5 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
 
     List<Order> getAllByOwnerName(String name);
     
-    List<Order> findAllByDateBetween(Date dateAfter, Date dateBefore);
+    List<Order> findAllByDateBetweenOrderByDateDesc(Date dateAfter, Date dateBefore);
 }

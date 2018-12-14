@@ -3,7 +3,6 @@ package fr.formation.sdj.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.websocket.server.PathParam;
 
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,7 +57,7 @@ public class AdministrationController {
 	
 	@GetMapping("/orders")
 	public String filterOrders(@PathParam("dateAfter") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAfter,@PathParam("dateBefore") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateBefore,ModelMap model) {
-		model.put("orderList", orderRepository.findAllByDateBetween(dateAfter, dateBefore));
+		model.put("orderList", orderRepository.findAllByDateBetweenOrderByDateDesc(dateAfter, dateBefore));
 		return "fragments/table.html :: orderTable";
 	}
 
@@ -83,8 +81,6 @@ public class AdministrationController {
 		List<Stock> stocks = form.getSuppliersCommand();
 		if(stocks != null && !stocks.isEmpty()) {
 			Product product = productRepository.findById(stocks.get(0).getId().getProductId()).get();
-			List<Stock> stockLeft = product.getStockLeft();
-			ListIterator<Stock> stockIterator = stocks.listIterator();
 			stocks.removeIf(curr -> curr.getStockLeft() == 0);
 			stocks.forEach(curr -> {
 				curr.setProduct(product); 

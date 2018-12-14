@@ -43,9 +43,9 @@ User findByLoginAndPassword(String login,String password);
 ```java
 int countByNameLike(String pattern);
 ```
-    * Repository : __OrderRepository__ => Between word
+    * Repository : __OrderRepository__ => Between word, OrderBy
 ```java
-List<Order> findAllByDateBetween(Date dateAfter, Date dateBefore);
+List<Order> findAllByDateBetweenOrderByDateDesc(Date dateAfter, Date dateBefore);
 ```
 * Property Expressions
   * Orders page with name filter
