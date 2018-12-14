@@ -58,3 +58,9 @@ List<Order> getAllByOwnerName(String name);
 ```java
 List<Supplier> findAllByCatalog_Id(Integer productId);
 ```
+* Special parameter handling
+  * Orders page options
+    * Repository : __OrderRepository__
+```java
+List<Order> findAll(Sort sorter);
+```
