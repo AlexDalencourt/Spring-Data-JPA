@@ -1,10 +1,11 @@
 package fr.formation.sdj.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.formation.sdj.entities.Order;
 import fr.formation.sdj.entities.User;
 import fr.formation.sdj.repositories.OrderRepository;
 import fr.formation.sdj.repositories.UserRepository;
@@ -47,7 +49,7 @@ public class OrderController {
 	}
 
 	@GetMapping("/options")
-	public String options(@RequestParam(required=false) List<String> sorters,@RequestParam(required=false, defaultValue="false") Boolean ascending, final ModelMap model) {
+	public String options(@RequestParam(required=false) List<String> sorters,@RequestParam(required=false, defaultValue="false") Boolean ascending,@RequestParam(required=false, defaultValue="false") Boolean paginator, final ModelMap model) {
 		putCommonsDatasOnModel(new User(), model);
 		if(sorters != null) {
 			Sort sorter = Sort.by(sorters.toArray(new String[] {}));
@@ -56,10 +58,25 @@ public class OrderController {
 			}else {
 				sorter.descending();
 			}
-			model.put("orderList", orderRepository.findAll(sorter));			
+			if(paginator) {
+				Page<Order> result = orderRepository.findAll(PageRequest.of(0,4,sorter));
+				model.put("orderList", result.getContent());	
+				model.put("nbPages", result.getTotalPages());
+			} else {
+				model.put("orderList", orderRepository.findAll(sorter));		
+			}
 		} else {
-			model.put("orderList", orderRepository.findAll());
+			if(paginator) {
+				Page<Order> result = orderRepository.findAll(PageRequest.of(0,4));
+				model.put("orderList", result.getContent());	
+				model.put("nbPages", result.getTotalPages());
+			} else {
+				model.put("orderList", orderRepository.findAll());
+			}
 		}
+		model.put("sorters", sorters);
+		model.put("ascending", ascending);
+		model.put("paginator", paginator);
 		return "order";
 	}
 

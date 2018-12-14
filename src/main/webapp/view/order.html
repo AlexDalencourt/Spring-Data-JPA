@@ -76,6 +76,9 @@
 		$("#enableSorters").append($("#selectedSorter option"))
 	}
 </script>
+<div th:if="${paginator}">
+	<span class="badge" th:each="index : ${#numbers.sequence(1, nbPages, 1)}" th:text="${index}" th:onclick="'changePage('+${index}+')'"></span>
+</div>
 <th:block th:include="fragments/table.html :: orderTable"/>
 </body>
 </html>

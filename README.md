@@ -63,4 +63,5 @@ List<Supplier> findAllByCatalog_Id(Integer productId);
     * Repository : __OrderRepository__
 ```java
 List<Order> findAll(Sort sorter);
+Page<Order> findAll(Pageable paginator);
 ```
