@@ -22,6 +22,60 @@
         </div>
     </div>
 </form>
+<form th:action="@{/order/options}" method="get" onsubmit="$('#selectedSorter option').prop('selected',true);">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h1>Options</h1>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label>Use paginator by four elements</label>
+				<input type="checkbox" name="paginator">
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-2">
+					<select multiple="multiple" class="form-control" id="enableSorters">
+						<option onclick="selectElement(this)" value="id">Id</option>
+						<option onclick="selectElement(this)" value="date">Date</option>
+						<option onclick="selectElement(this)" value="owner.login">Owner</option>
+					</select>
+				</div>
+				<div class="col-sm-1">
+					<div class="glyphicon glyphicon-fast-backward" onclick="unselectAll()"></div>
+					<div class="glyphicon glyphicon-fast-forward" onclick="selectAll()"></div>
+				</div>
+				<div class="col-sm-2 ">
+					<select id="selectedSorter" class="form-control" multiple="multiple" name="sorter">
+					</select>
+				</div>
+				<div class="col-sm-6"></div>
+			</div>
+			<div class="form-group">
+				<label>Ascendings</label>
+				<input type="checkbox" name="ascending">
+			</div>
+			<input type="submit" value="Sort">
+		</div>
+	</div>
+</form>
+<script>
+	function selectElement(option){
+		$(option).attr("onclick","unselectElement(this)");
+		$("#selectedSorter").append(option);
+	}
+	function unselectElement(option){
+		$(option).attr("onclick","selectElement(this)");
+		$("#enableSorters").append(option);
+	}
+	function selectAll(){
+		$("#enableSorters option").attr("onclick","unselectElement(this)");
+		$("#selectedSorter").append($("#enableSorters option"))
+	}
+	function unselectAll(){
+		$("#selectedSorter option").attr("onclick","selectElement(this)");
+		$("#enableSorters").append($("#selectedSorter option"))
+	}
+</script>
 <th:block th:include="fragments/table.html :: orderTable"/>
 </body>
 </html>
